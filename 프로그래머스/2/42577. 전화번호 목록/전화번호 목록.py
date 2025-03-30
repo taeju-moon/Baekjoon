@@ -1,13 +1,15 @@
 def solution(phone_book):
     hash = {}
+    
     for phone in phone_book:
-        hash[phone] = 1
+        hash[phone] = phone
         
-    for data in phone_book:
-        temp = ""
-        for num in data:
-            temp += num
-            if (temp in hash and temp != data):
+    sorted_phone_book = sorted(phone_book, reverse=True, key=len)
+    
+    for book in sorted_phone_book:
+        for i in range(len(book)):
+            got = hash.get(book[:i+1])
+            if (got != None and got != book):
                 return False
             
     return True
