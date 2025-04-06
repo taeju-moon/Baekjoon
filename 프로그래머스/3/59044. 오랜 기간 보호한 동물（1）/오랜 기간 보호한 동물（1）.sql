@@ -1,0 +1,10 @@
+-- 코드를 입력하세요
+SELECT
+A.NAME as Name,
+A.DATETIME as DateTime
+from animal_ins A 
+LEFT OUTER JOIN ANIMAL_OUTS B
+ON A.ANIMAL_ID = B.ANIMAL_ID
+WHERE B.ANIMAL_TYPE IS NULL
+order by A.DATETIME 
+LIMIT 3
