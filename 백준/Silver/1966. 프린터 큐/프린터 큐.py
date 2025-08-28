@@ -9,14 +9,17 @@ result = []
 for _ in range(times):
     N, M = map(int, input().split())
 
-    queue = deque(map(lambda x: [int(x), False], input().split()))
+    priorities = list(map(int, input().split()))
+    queue = deque(map(lambda x: [int(x), False], priorities))
     queue[M][1] = True
+    priorities.sort(reverse=True)
 
     count = 0
     while queue:
         data, isObject = queue.popleft()
         # 뽑은 데이터가 우선순위가 가장 높을 경우
-        if not queue or data >= max(map(lambda x: x[0], queue)):
+        if not queue or data >= priorities[0]:
+            priorities.pop(0)
             count += 1
             if isObject:
                 break
