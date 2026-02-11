@@ -1,5 +1,5 @@
 import sys
-from collections import deque
+import heapq
 
 input = sys.stdin.readline
 INF = sys.maxsize
@@ -16,18 +16,17 @@ for _ in range(N):
         a, b, cost = map(int, input().split())
         adj_list[b].append((cost, a))
 
-    queue = deque()
-    queue.append((0, c))
+    queue = [(0, c)]
 
     distances = [INF] * (n+1)
     distances[c] = 0
 
     while queue:
-        cost, node = queue.popleft()
+        cost, node = heapq.heappop(queue)
         for new_cost, new_node in adj_list[node]:
             if distances[new_node] > cost + new_cost:
                 distances[new_node] = cost + new_cost
-                queue.append((cost+new_cost, new_node))
+                heapq.heappush(queue, (cost+new_cost, new_node))
 
     infected = list(filter(lambda x: x != INF, distances))
     result = (len(infected), max(infected) if len(infected) != 0 else 0)
