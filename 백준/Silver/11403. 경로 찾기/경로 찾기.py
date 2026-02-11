@@ -16,28 +16,18 @@ for i in range(N):
         for k in range(N):
             if matrix[i][j]:
                 distances[i][j] = True
-            if matrix[j][i]:
-                distances[j][i] = True
             if matrix[i][k] and matrix[k][j]:
                 distances[i][j] = True
                 matrix[i][j] = 1
-            if matrix[j][k] and matrix[k][i]:
-                distances[j][i] = True
-                matrix[j][i] = 1
 
 for i in range(N):
     for j in range(N):
         for k in range(N):
             if matrix[i][j]:
                 distances[i][j] = True
-            if matrix[j][i]:
-                distances[j][i] = True
             if matrix[i][k] and matrix[k][j]:
                 distances[i][j] = True
                 matrix[i][j] = 1
-            if matrix[j][k] and matrix[k][i]:
-                distances[j][i] = True
-                matrix[j][i] = 1
 
 for i in range(N):
     for j in range(N):
