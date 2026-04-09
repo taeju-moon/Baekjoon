@@ -1,8 +1,9 @@
 def solution(citations):
-    #1. 내림차순 정렬
+    n = len(citations)
+    
     citations.sort(reverse=True)
     
-    for index, data in enumerate(citations):
-        if index +1 > data:
-            return index
-    return len(citations)
+    for i in range(1,n+1,1):
+        if citations[i-1] < i:
+            return i-1
+    return n
