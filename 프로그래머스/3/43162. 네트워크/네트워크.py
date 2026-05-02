@@ -1,18 +1,27 @@
-def dfs(visited, node, computers, n):
-    found = False
-    for i in range(n):
-        if not visited[i] and computers[node][i]:
-            visited[i] = True
-            found = True
-            dfs(visited,i,computers,n)
+from collections import deque
+cnt = 0
+visited = []
 
-    return found
+def bfs(n, node, computers):
+    global visited
+    queue = deque()
+    queue.append(node)
+    
+    while queue:
+        elem = queue.popleft()
+        visited[elem] = True
+        for i in range(n):
+            if not visited[i] and computers[elem][i]:
+                queue.append(i)
 
 def solution(n, computers):
+    global cnt
+    global visited 
     visited = [False] * n
-    answer = 0
-    for root in range(n):
-        found = dfs(visited, root, computers, n)
-        if found: answer += 1
-        if all(visited): break
-    return answer
+    
+    for i in range(n):
+        if not visited[i]:
+            bfs(n, i, computers)
+            cnt +=1
+            print(visited)
+    return cnt
