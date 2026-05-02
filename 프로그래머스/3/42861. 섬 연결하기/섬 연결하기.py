@@ -1,22 +1,27 @@
 import heapq
 
 def solution(n, costs):
-    edges = [[] for _ in range(n)]
-    visited = [False] * (n)
-
-    for start, end,cost in costs:
-        edges[start].append((cost, end))
-        edges[end].append((cost, start))
-        
-    heap = [(0,0)]
+    edges = {} # from: (to, cost)
+    visited = [False] * n
     answer = 0
-    while heap:
-        cost, node = heapq.heappop(heap)
+    
+    for i in range(n):
+        edges[i] = []
+    for start, end, cost in costs:
+        edges[start].append((end, cost))
+        edges[end].append((start, cost))
+        
+    queue = [(0, 0)] #(cost, node)
+    while queue:
+        cost, node = heapq.heappop(queue)
         if visited[node]:
             continue
+        
         visited[node] = True
         answer += cost
-        for new_cost, new_node in edges[node]:
-            if not visited[new_node]:
-                heapq.heappush(heap, (new_cost, new_node))
+        
+        for next_node, next_cost in edges[node]:
+            if not visited[next_node]:
+                heapq.heappush(queue, (next_cost, next_node))
+                
     return answer
